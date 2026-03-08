@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Prime Beauty — Caixinhas de Amor</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== SVG SPRITE — todos os ícones do site ===== -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <!-- Butterfly / logo -->
+  <symbol id="ico-butterfly" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 12C10 8 4 4 2 7c-1 2 1 5 4 5 2 0 4-1 6-3v6c-2-2-4-3-6-3-3 0-5 3-4 5 2 3 8-1 10-5z"/>
+    <path d="M12 12c2-4 8-8 10-5 1 2-1 5-4 5-2 0-4-1-6-3v6c2-2 4-3 6-3 3 0 5 3 4 5-2 3-8-1-10-5z"/>
+  </symbol>
+  <!-- Rose -->
+  <symbol id="ico-rose" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 22V13"/>
+    <path d="M12 13s-5-3-5-7a5 5 0 0110 0c0 4-5 7-5 7z"/>
+    <path d="M5 20c0-3 3.13-5 7-5s7 2 7 5"/>
+  </symbol>
+  <!-- Heart -->
+  <symbol id="ico-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+  </symbol>
+  <!-- Sparkle / wand -->
+  <symbol id="ico-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.64 5.64l1.41 1.41M16.95 16.95l1.41 1.41M5.64 18.36l1.41-1.41M16.95 7.05l1.41-1.41"/>
+    <circle cx="12" cy="12" r="4"/>
+  </symbol>
+  <!-- Gift box -->
+  <symbol id="ico-gift" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="20 12 20 22 4 22 4 12"/>
+    <rect x="2" y="7" width="20" height="5"/>
+    <line x1="12" y1="22" x2="12" y2="7"/>
+    <path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/>
+    <path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/>
+  </symbol>
+  <!-- Teddy bear -->
+  <symbol id="ico-bear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="8" cy="7" r="3"/>
+    <circle cx="16" cy="7" r="3"/>
+    <circle cx="12" cy="14" r="7"/>
+    <circle cx="9.5" cy="13" r="0.8" fill="currentColor" stroke="none"/>
+    <circle cx="14.5" cy="13" r="0.8" fill="currentColor" stroke="none"/>
+    <path d="M10 16.5a3 3 0 004 0"/>
+  </symbol>
+  <!-- Chocolate bar -->
+  <symbol id="ico-choco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="5" width="20" height="14" rx="2"/>
+    <line x1="2" y1="10" x2="22" y2="10"/>
+    <line x1="2" y1="15" x2="22" y2="15"/>
+    <line x1="7"  y1="5" x2="7"  y2="19"/>
+    <line x1="12" y1="5" x2="12" y2="19"/>
+    <line x1="17" y1="5" x2="17" y2="19"/>
+  </symbol>
+  <!-- Cup / drink -->
+  <symbol id="ico-drink" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 8h1a4 4 0 010 8h-1"/>
+    <path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/>
+    <line x1="6"  y1="1" x2="6"  y2="4"/>
+    <line x1="10" y1="1" x2="10" y2="4"/>
+    <line x1="14" y1="1" x2="14" y2="4"/>
+  </symbol>
+  <!-- Ribbon / bow -->
+  <symbol id="ico-ribbon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 12s-6-4-6-8a4 4 0 018 0"/>
+    <path d="M12 12s6-4 6-8a4 4 0 00-8 0"/>
+    <path d="M12 12s-6 4-6 8a4 4 0 008 0"/>
+    <path d="M12 12s6 4 6 8a4 4 0 01-8 0"/>
+    <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+  </symbol>
+  <!-- Balloon -->
+  <symbol id="ico-balloon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="9" r="7"/>
+    <path d="M12 16v6"/>
+    <path d="M9 22h6"/>
+  </symbol>
+  <!-- Envelope / card -->
+  <symbol id="ico-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+  </symbol>
+  <!-- Lightning -->
+  <symbol id="ico-lightning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+  </symbol>
+  <!-- Palette -->
+  <symbol id="ico-palette" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="13.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+    <circle cx="17.5" cy="10.5" r="1" fill="currentColor" stroke="none"/>
+    <circle cx="8.5"  cy="7"   r="1" fill="currentColor" stroke="none"/>
+    <circle cx="6.5"  cy="11.5" r="1" fill="currentColor" stroke="none"/>
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c1.38 0 2.5-1.12 2.5-2.5 0-.61-.23-1.21-.64-1.67-.08-.1-.13-.21-.13-.33 0-.28.22-.5.5-.5H17a5 5 0 005-5c0-4.42-4.48-8-10-8z"/>
+  </symbol>
+</svg>
+
+<div id="bg-fixed"></div>
+<div id="global-petals"></div>
+
+<div id="site-content">
+
+  <nav id="nav">
+    <a href="#" class="nav-logo">PB <svg class="nav-butterfly" aria-hidden="true"><use href="#ico-butterfly"/></svg></a>
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#produtos">Produtos</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu-close" onclick="toggleMenu()">✕</button>
+    <div class="mobile-menu-logo">PB <svg class="nav-butterfly" aria-hidden="true"><use href="#ico-butterfly"/></svg></div>
+    <nav class="mobile-nav-links">
+      <a href="#sobre"    onclick="toggleMenu()">Sobre nós</a>
+      <a href="#produtos" onclick="toggleMenu()">Produtos</a>
+      <a href="#contato"  onclick="toggleMenu()">Contato</a>
+    </nav>
+    <button class="btn btn-primary mobile-menu-cta" onclick="toggleMenu();openBuilder()">Montar minha caixinha <svg class="btn-ico" aria-hidden="true"><use href="#ico-sparkle"/></svg></button>
+  </div>
+
+  <section class="hero">
+    <div class="logo-wrap">
+      <div class="logo-monogram">PB</div>
+      <div class="logo-name">Prime Beauty</div>
+      <span class="logo-ribbon"><svg aria-hidden="true"><use href="#ico-ribbon"/></svg></span>
+    </div>
+    <p class="hero-tagline">Presentes que falam pelo coração</p>
+    <div class="hero-cta">
+      <button class="btn btn-primary" onclick="openBuilder()">Montar minha caixinha <svg class="btn-ico" aria-hidden="true"><use href="#ico-sparkle"/></svg></button>
+      <a href="#produtos" class="btn btn-outline">Ver modelos prontos</a>
+    </div>
+    <div class="scroll-hint"><div class="scroll-line"></div>rolar</div>
+  </section>
+
+  <section class="about reveal" id="sobre">
+    <div class="inner frost-light">
+      <p class="section-label">Nossa história</p>
+      <h2 class="section-title">Amor embalado<br>com cuidado</h2>
+      <div class="divider" style="margin:24px auto;"></div>
+      <div class="hearts-row">
+        <span class="heart"><svg aria-hidden="true"><use href="#ico-rose"/></svg></span>
+        <span class="heart"><svg aria-hidden="true"><use href="#ico-bear"/></svg></span>
+        <span class="heart"><svg aria-hidden="true"><use href="#ico-choco"/></svg></span>
+      </div>
+      <p class="body-text">Na Prime Beauty, cada caixinha é criada com amor e intenção. Chocolates irresistíveis, ursinhos fofuros e surpresas especiais para você expressar seus sentimentos de um jeito único e inesquecível.</p>
+    </div>
+  </section>
+
+  <section class="inside reveal">
+    <div class="inner frost-light">
+      <p class="section-label">Dentro de cada caixinha</p>
+      <h2 class="section-title">Feita com<br>os melhores detalhes</h2>
+      <div class="divider" style="margin:24px auto;"></div>
+      <div class="inside-grid">
+        <div class="inside-item"><span class="icon"><svg aria-hidden="true"><use href="#ico-bear"/></svg></span><span class="label">Ursinho</span></div>
+        <div class="inside-item"><span class="icon"><svg aria-hidden="true"><use href="#ico-sparkle"/></svg></span><span class="label">Ferrero</span></div>
+        <div class="inside-item"><span class="icon"><svg aria-hidden="true"><use href="#ico-choco"/></svg></span><span class="label">KitKat</span></div>
+        <div class="inside-item"><span class="icon"><svg aria-hidden="true"><use href="#ico-choco"/></svg></span><span class="label">Kinder</span></div>
+        <div class="inside-item"><span class="icon"><svg aria-hidden="true"><use href="#ico-drink"/></svg></span><span class="label">Coca-Cola</span></div>
+        <div class="inside-item"><span class="icon"><svg aria-hidden="true"><use href="#ico-gift"/></svg></span><span class="label">Caixa</span></div>
+        <div class="inside-item"><span class="icon"><svg aria-hidden="true"><use href="#ico-balloon"/></svg></span><span class="label">Bal&#xE3;o</span></div>
+        <div class="inside-item"><span class="icon"><svg aria-hidden="true"><use href="#ico-mail"/></svg></span><span class="label">Cart&#xE3;o</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="products reveal" id="produtos">
+    <div class="inner frost-dark">
+      <p class="section-label">Escolha a sua</p>
+      <h2 class="section-title">Nossas Caixinhas</h2>
+      <div class="divider"></div>
+      <div class="products-grid">
+        <div class="product-card" onclick="openBuilder()">
+          <span class="product-emoji"><svg aria-hidden="true"><use href="#ico-rose"/></svg></span>
+          <div class="product-name">Caixinha Classic</div>
+          <p class="product-desc">Ursinho, Ferrero Rocher, KitKat e Coca-Cola.</p>
+          <div class="product-price">A partir de R$ 89</div>
+          <span class="product-tag">Mais vendida</span>
+        </div>
+        <div class="product-card" onclick="openBuilder()">
+          <span class="product-emoji"><svg aria-hidden="true"><use href="#ico-heart"/></svg></span>
+          <div class="product-name">Caixinha Premium</div>
+          <p class="product-desc">Tudo da Classic + Kinder Bueno e la&#xE7;o de cetim.</p>
+          <div class="product-price">A partir de R$ 129</div>
+          <span class="product-tag">Mais completa</span>
+        </div>
+        <div class="product-card" onclick="openBuilder()">
+          <span class="product-emoji"><svg aria-hidden="true"><use href="#ico-sparkle"/></svg></span>
+          <div class="product-name">Monte a Sua</div>
+          <p class="product-desc">Escolha cada item e crie algo &#xFA;nico.</p>
+          <div class="product-price">Voc&#xEA; decide</div>
+          <span class="product-tag">Personalizada</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="why reveal">
+    <div class="inner frost-dark">
+      <p class="section-label">Por que Prime Beauty</p>
+      <h2 class="section-title">Diferente desde<br>o primeiro detalhe</h2>
+      <div class="divider"></div>
+      <div class="why-grid">
+        <div class="why-item"><div class="why-icon"><svg aria-hidden="true"><use href="#ico-heart"/></svg></div><div class="why-heading">Feita com amor</div><p class="why-text">Cada caixinha montada &#xE0; m&#xE3;o com cuidado.</p></div>
+        <div class="why-item"><div class="why-icon"><svg aria-hidden="true"><use href="#ico-lightning"/></svg></div><div class="why-heading">Entrega r&#xE1;pida</div><p class="why-text">Mesmo dia ou agende para a data perfeita.</p></div>
+        <div class="why-item"><div class="why-icon"><svg aria-hidden="true"><use href="#ico-palette"/></svg></div><div class="why-heading">Personaliz&#xE1;vel</div><p class="why-text">Itens e mensagem do seu jeito.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonial reveal">
+    <div class="inner frost-light">
+      <p class="quote">Recebi minha caixinha e chorei de felicidade. É o presente mais lindo que já ganhei na vida.</p>
+      <p class="quote-author">— Cliente satisfeita ❤️</p>
+    </div>
+  </section>
+
+  <section class="cta-section reveal" id="contato">
+    <div class="inner frost-rose">
+      <h2 class="section-title">Pronta para encantar<br>alguém especial?</h2>
+      <p>Monte sua caixinha personalizada agora mesmo.</p>
+      <button class="btn-white" onclick="openBuilder()">Montar minha caixinha <svg class="btn-ico" aria-hidden="true"><use href="#ico-ribbon"/></svg></button>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">PB <svg class="nav-butterfly" aria-hidden="true"><use href="#ico-butterfly"/></svg></div>
+    <div class="footer-links">
+      <a href="#">Instagram</a>
+      <a href="https://wa.me/5562985910317">WhatsApp</a>
+      <a href="#sobre">Sobre n&#xF3;s</a>
+    </div>
+    <p style="margin-top:24px;">&#xA9; 2025 Prime Beauty &#x2014; Feito com amor <svg class="footer-heart" aria-hidden="true"><use href="#ico-heart"/></svg></p>
+  </footer>
+</div>
+
+<!-- BOTÃO FLUTUANTE WHATSAPP -->
+<a href="https://wa.me/5562985910317" class="fab-whatsapp" target="_blank">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- MODAL MONTADOR -->
+<div class="modal-overlay" id="builderModal">
+  <div class="modal">
+
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Monte sua <span>caixinha</span> <svg class="btn-ico" aria-hidden="true"><use href="#ico-ribbon"/></svg></div>
+        <div class="modal-step-info" id="modalStepInfo">Passo 1 de 6 — Escolha a cesta</div>
+      </div>
+      <button class="modal-close" onclick="closeBuilder()">✕</button>
+    </div>
+
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:16.6%"></div></div>
+
+    <div class="steps-scroll-wrap">
+      <div class="steps-nav" id="stepsNav">
+        <button class="step-tab active" onclick="goStep(0)"><svg class="tab-ico" aria-hidden="true"><use href="#ico-gift"/></svg> Cesta</button>
+        <button class="step-tab" onclick="goStep(1)"><svg class="tab-ico" aria-hidden="true"><use href="#ico-bear"/></svg> Ursinho<span class="badge" id="badgeUrso"></span></button>
+        <button class="step-tab" onclick="goStep(2)"><svg class="tab-ico" aria-hidden="true"><use href="#ico-choco"/></svg> Chocolates<span class="badge" id="badgeChoc"></span></button>
+        <button class="step-tab" onclick="goStep(3)"><svg class="tab-ico" aria-hidden="true"><use href="#ico-drink"/></svg> Bebidas<span class="badge" id="badgeBeb"></span></button>
+        <button class="step-tab" onclick="goStep(4)"><svg class="tab-ico" aria-hidden="true"><use href="#ico-balloon"/></svg> Extras<span class="badge" id="badgeExtra"></span></button>
+        <button class="step-tab" onclick="goStep(5)"><svg class="tab-ico" aria-hidden="true"><use href="#ico-mail"/></svg> Mensagem</button>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <div class="builder-left">
+
+        <div class="step-panel active" id="step0">
+          <div class="step-heading-sm">Escolha a cesta <svg class="step-ico" aria-hidden="true"><use href="#ico-gift"/></svg></div>
+          <div class="items-grid" id="gridCesta"></div>
+        </div>
+
+        <div class="step-panel" id="step1">
+          <div class="step-heading-sm">Ursinho <svg class="step-ico" aria-hidden="true"><use href="#ico-bear"/></svg> <span class="optional-tag">opcional</span></div>
+          <div class="items-grid" id="gridUrso"></div>
+        </div>
+
+        <div class="step-panel" id="step2">
+          <div class="step-heading-sm">Chocolates <svg class="step-ico" aria-hidden="true"><use href="#ico-choco"/></svg></div>
+          <div class="cat-filter">
+            <button class="cat-pill active" onclick="filterItems('choc','todos',this)">Todos</button>
+            <button class="cat-pill" onclick="filterItems('choc','ferrero',this)">Ferrero</button>
+            <button class="cat-pill" onclick="filterItems('choc','kinder',this)">Kinder</button>
+            <button class="cat-pill" onclick="filterItems('choc','kitkat',this)">KitKat</button>
+            <button class="cat-pill" onclick="filterItems('choc','outros',this)">Outros</button>
+          </div>
+          <div class="items-grid" id="gridChoc"></div>
+        </div>
+
+        <div class="step-panel" id="step3">
+          <div class="step-heading-sm">Bebidas <svg class="step-ico" aria-hidden="true"><use href="#ico-drink"/></svg></div>
+          <div class="items-grid" id="gridBeb"></div>
+        </div>
+
+        <div class="step-panel" id="step4">
+          <div class="step-heading-sm">Extras <svg class="step-ico" aria-hidden="true"><use href="#ico-balloon"/></svg></div>
+          <div class="items-grid" id="gridExtras"></div>
+        </div>
+
+        <div class="step-panel" id="step5">
+          <div class="step-heading-sm">Mensagem <svg class="step-ico" aria-hidden="true"><use href="#ico-mail"/></svg></div>
+          <div class="msg-form">
+            <label class="input-label">Seu nome</label>
+            <input class="name-input" id="senderName" placeholder="Quem manda..." />
+            <label class="input-label">Nome de quem vai receber</label>
+            <input class="name-input" id="receiverName" placeholder="Com muito amor..." />
+            <label class="input-label">Mensagem do cart&#xE3;ozinho</label>
+            <textarea class="msg-area" id="messageText" placeholder="Escreva aqui sua mensagem com todo amor..."></textarea>
+            <p class="msg-hint">Esta mensagem vai no cart&#xE3;ozinho dentro da caixinha</p>
+          </div>
+        </div>
+
+        <div class="success-screen" id="successScreen">
+
+          <!-- Cabeçalho -->
+          <div class="ss-header">
+            <div class="ss-check">✓</div>
+            <div class="ss-title">Pedido confirmado!</div>
+            <div class="ss-subtitle">Seu WhatsApp foi aberto com a mensagem pronta 💬</div>
+          </div>
+
+          <!-- Corpo do resumo -->
+          <div class="ss-body">
+
+            <!-- Número do pedido + nomes -->
+            <div class="ss-order-meta">
+              <span class="ss-order-id" id="ssOrderId">Pedido #——</span>
+              <div class="ss-names">
+                <span class="ss-name-tag"><svg class="ss-name-ico" aria-hidden="true"><use href="#ico-bear"/></svg> <span id="ssSender">&#x2014;</span></span>
+                <span class="ss-name-arrow">&#x2192;</span>
+                <span class="ss-name-tag"><svg class="ss-name-ico" aria-hidden="true"><use href="#ico-heart"/></svg> <span id="ssReceiver">&#x2014;</span></span>
+              </div>
+            </div>
+
+            <!-- Itens -->
+            <div class="ss-items-wrap">
+              <div class="ss-section-label"><svg class="ss-lbl-ico" aria-hidden="true"><use href="#ico-gift"/></svg> Itens da caixinha</div>
+              <div class="ss-items" id="ssItems"></div>
+              <div class="ss-total-row">
+                <span>Total estimado</span>
+                <strong id="ssTotal">R$ 0</strong>
+              </div>
+            </div>
+
+            <!-- Mensagem do cartão -->
+            <div class="ss-msg-wrap" id="ssMsgWrap">
+              <div class="ss-section-label"><svg class="ss-lbl-ico" aria-hidden="true"><use href="#ico-mail"/></svg> Mensagem do cart&#xE3;ozinho</div>
+              <div class="ss-msg-text" id="ssMsgText"></div>
+            </div>
+
+            <!-- Preview da mensagem WhatsApp -->
+            <div class="ss-wa-wrap">
+              <div class="ss-section-label"><svg class="ss-lbl-ico" aria-hidden="true"><use href="#ico-lightning"/></svg> Pr&#xE9;via da mensagem no WhatsApp</div>
+              <div class="ss-wa-bubble">
+                <div class="ss-wa-text" id="ssWaPreview"></div>
+                <div class="ss-wa-tail"></div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Rodapé -->
+          <div class="ss-footer">
+            <button class="ss-btn-wa" id="ssBtnWa" onclick="reabrirWhatsapp()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="white" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Abrir WhatsApp
+            </button>
+            <button class="ss-btn-reset" onclick="resetBuilder()">+ Novo pedido</button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- SIDEBAR DESKTOP -->
+      <div class="order-sidebar">
+        <div class="sidebar-title">🛒 Sua caixinha</div>
+        <div class="order-items" id="orderItems">
+          <p class="sidebar-empty">Vazia por enquanto...<br>adicione itens ao lado</p>
+        </div>
+        <div class="order-total">
+          <div class="total-row">
+            <span class="total-label">Total estimado</span>
+            <span class="total-value" id="totalValue">R$ 0</span>
+          </div>
+        </div>
+        <p class="sidebar-note">* Valores confirmados pelo WhatsApp.</p>
+        <button class="btn-whatsapp" id="whatsappBtnDesktop" disabled onclick="finalizarPedido()">
+          <span>💬</span> Pedir pelo WhatsApp
+        </button>
+      </div>
+    </div>
+
+    <!-- FOOTER STICKY -->
+    <div class="modal-footer">
+      <button class="cart-pill" id="cartPill" onclick="toggleCartDrawer()">
+        <span id="cartPillCount">0 itens</span>
+        <span class="cart-sep">·</span>
+        <strong id="cartPillTotal">R$ 0</strong>
+        <span class="cart-icon-badge">🛒</span>
+      </button>
+      <div class="footer-actions">
+        <button class="btn-back-step" id="btnBack" onclick="stepBack()" style="display:none">← Voltar</button>
+        <button class="btn-next-step" id="btnNext" onclick="stepNext()">Avançar →</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CART DRAWER MOBILE -->
+<div class="cart-drawer-overlay" id="cartDrawerOverlay" onclick="toggleCartDrawer()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="drawer-handle-bar" onclick="toggleCartDrawer()"></div>
+  <div class="cart-drawer-inner">
+    <div class="cart-drawer-title">🛒 Sua caixinha</div>
+    <div class="cart-drawer-items" id="drawerItems">
+      <p class="sidebar-empty">Adicione itens para ver aqui</p>
+    </div>
+    <div class="cart-drawer-total">
+      <span class="total-label">Total estimado</span>
+      <strong class="total-value" id="drawerTotal">R$ 0</strong>
+    </div>
+    <p class="sidebar-note">* Valores confirmados pelo WhatsApp.</p>
+    <button class="btn-whatsapp" id="whatsappBtn" disabled onclick="finalizarPedido()">
+      <span>💬</span> Pedir pelo WhatsApp
+    </button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
